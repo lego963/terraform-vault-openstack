@@ -17,6 +17,7 @@ provider "vault" {
 }
 
 provider "openstack" {
-  auth_url = "https://iam.eu-de.otc.t-systems.com/v3"
-  token    = data.vault_generic_secret.token.data["token"]
+  auth_url    = data.vault_generic_secret.this.data["auth_url"]
+  token       = data.vault_generic_secret.this.data["token"]
+  tenant_name = var.project_name
 }

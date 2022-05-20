@@ -33,12 +33,3 @@ resource "vault_generic_secret" "root_token" {
     vault_generic_secret.os_root
   ]
 }
-
-data "vault_generic_secret" "token" {
-  path = "openstack/creds/root_token"
-
-  depends_on = [
-    vault_generic_secret.root_token,
-    vault_generic_secret.tmp_user_token
-  ]
-}
