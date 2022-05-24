@@ -16,8 +16,12 @@ provider "vault" {
   address = var.vault_public_addr
 }
 
+locals {
+  auth = jsondecode(data.vault_generic_secret.this.data["auth"])
+}
+
 provider "openstack" {
-  auth_url    = data.vault_generic_secret.this.data["auth_url"]
-  token       = data.vault_generic_secret.this.data["token"]
-  tenant_name = var.project_name
+  auth_url    = local.auth.auth_url
+  token       = local.auth.token
+  tenant_name = local.auth.project_name
 }
